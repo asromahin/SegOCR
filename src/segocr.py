@@ -31,14 +31,15 @@ class SegOCR(torch.nn.Module):
         params = {
             'encoder_name': encoder_name,
             'in_channels': in_channels,
+            'classes': output_classes,
         }
         if not pretrained:
             params['encoder_weights'] = None
         if model_type == ModelTypeEnum.unet:
             params['decoder_attention_type'] = 'scse'
-            self.seg_model = smp.Unet(**params, classes=output_classes)
+            self.seg_model = smp.Unet(**params)
         elif model_type == ModelTypeEnum.linknet:
-            self.seg_model = smp.Linknet(**params, classes=output_classes)
+            self.seg_model = smp.Linknet(**params)
 
         convert_size = (self.input_size[0], self.input_size[1]//rnn_size)
         # Output size after this conv - (batch_size, output_classes, 1, rnn_size)

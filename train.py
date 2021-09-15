@@ -1,6 +1,7 @@
 from src.segocr import SegOCR
 from src.dataset import get_dataloaders_and_dict
 from config import Config, config
+from tqdm import tqdm
 
 INPUT_SIZE = (64, 512)
 WANDB_LOG = True
@@ -20,9 +21,18 @@ def train(config: Config):
     )
     optim = config.optimizer(model.parameters(), **config.optimizer_kwargs)
 
-    loss = config.loss(**config.loss_kwargs)
+    loss = config.loss(blank=0, **config.loss_kwargs)
 
-    #for epoch in range(config.epoch):
+    model.to(config.device)
+    for epoch in range(config.epoch):
+        pbar = tqdm(train_dataloader)
+        for data in pbar:
+            model.zero_grad()
+            optim.zero_grad()
+            data['image'].to(config.device)
+            data['code'].to(config.device)
+            logits = model(data['image'])
+            l = loss(logits, data['code'], )
 
 
 if __name__ == '__main__':

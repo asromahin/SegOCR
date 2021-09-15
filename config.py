@@ -47,8 +47,14 @@ config = Config(
 
     model=SegOCR,
     model_kwargs={
-        'input_size': (64, 512),
+
     },
+
+    loss=torch.nn.CTCLoss,
+    loss_kwargs={},
+
+    optimizer=torch.optim.Adam,
+    optimizer_kwargs={},
 
     wandb_log=True,
 )
