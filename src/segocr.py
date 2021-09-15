@@ -12,7 +12,7 @@ class ModelTypeEnum:
     pspnet = 'pspnet'
 
 
-class SegOCR:
+class SegOCR(torch.nn.Module):
     def __init__(
             self,
             input_size,
@@ -23,6 +23,7 @@ class SegOCR:
             model_type=ModelTypeEnum.unet,
             pretrained=True,
     ):
+        super(SegOCR, self).__init__()
         self.input_size = input_size
         self.rnn_size = rnn_size
         self.output_classes = output_classes
