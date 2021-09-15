@@ -8,7 +8,7 @@ class OcrDict:
         self.max_len = max([len(text) for text in list_texts])
 
     def _get_dicts(self):
-        unique_chars = sorted(list(set("".join(self.list_texts))))
+        unique_chars = list(set("".join(self.list_texts)))
         code_to_char = {i+1: char for i, char in enumerate(unique_chars)}
         char_to_code = {char: i+1 for i, char in enumerate(unique_chars)}
         return unique_chars, code_to_char, char_to_code
