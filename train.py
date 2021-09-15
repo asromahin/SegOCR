@@ -1,3 +1,5 @@
+import torch
+
 from src.segocr import SegOCR
 from src.dataset import get_dataloaders_and_dict
 from config import Config, config
@@ -32,7 +34,7 @@ def train(config: Config):
             data['image'].to(config.device)
             data['code'].to(config.device)
             logits = model(data['image'])
-            l = loss(logits, data['code'], )
+            l = loss(logits, data['code'], torch.ones(data['image'].size[0],) * config.rnn_size, data['len'])
 
 
 if __name__ == '__main__':
