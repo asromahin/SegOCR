@@ -5,10 +5,6 @@ from src.dataset import get_dataloaders_and_dict
 from config import Config, config
 from tqdm import tqdm
 
-INPUT_SIZE = (64, 512)
-WANDB_LOG = True
-PATH_DF = ''
-
 
 def train(config: Config):
     train_dataloader, val_dataloader, ocr_dict = get_dataloaders_and_dict(
@@ -35,6 +31,10 @@ def train(config: Config):
             data['code'].to(config.device)
             logits = model(data['image'])
             l = loss(logits, data['code'], torch.ones(data['image'].size[0],) * config.rnn_size, data['len'])
+            l.backward()
+            pbar.set_postfix({
+                'loss': loss,
+            })
 
 
 if __name__ == '__main__':

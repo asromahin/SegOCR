@@ -37,7 +37,7 @@ config = Config(
     num_workers=0,
     random_state=42,
 
-    df_path='df_path',
+    df_path='path_to_df',
     test_size=0.15,
     batch_size=8,
     epoch=100,
