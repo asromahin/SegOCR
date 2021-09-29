@@ -20,7 +20,7 @@ def train(config: Config):
     )
     optim = config.optimizer(model.parameters(), **config.optimizer_kwargs)
 
-    loss = config.loss(blank=0, **config.loss_kwargs)
+    loss = config.loss()#(blank=0, **config.loss_kwargs)
 
     model.to(config.device)
     for epoch in range(config.epoch):
