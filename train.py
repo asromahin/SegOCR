@@ -11,6 +11,8 @@ def train(config: Config):
         config.df_path,
         input_size=config.input_size,
     )
+    print(ocr_dict.code_to_char)
+    print(ocr_dict.char_to_code)
     model = SegOCR(
         input_size=config.input_size,
         output_classes=ocr_dict.count_letters+1,
@@ -32,6 +34,7 @@ def train(config: Config):
             logits = model(data['image'])
             l = loss(logits, data['code'], torch.ones(data['image'].size[0],) * config.rnn_size, data['len'])
             l.backward()
+            optim.step()
             pbar.set_postfix({
                 'loss': loss,
             })
