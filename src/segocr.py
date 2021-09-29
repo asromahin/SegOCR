@@ -56,7 +56,7 @@ class SegOCR(torch.nn.Module):
         logits = self.to_rnn_size(seg_out)
         logits = logits.squeeze(dim=2)
         print(logits.shape)
-        logits = logits.transpose(2, 0, 1)
+        logits = torch.transpose(logits, 2, 0, 1)
         logits = self.activation(logits)
         if return_seg:
             return logits, seg_out
