@@ -31,7 +31,7 @@ def train(config: Config):
             data['image'].to(config.device)
             data['code'].to(config.device)
             logits = model(data['image'])
-            print(loss)
+            print(loss, type(loss))
             l = loss(logits, data['code'], torch.ones(data['image'].size[0], device=config.device) * config.rnn_size, data['len'])
             l.backward()
             optim.step()
