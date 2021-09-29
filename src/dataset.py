@@ -39,7 +39,7 @@ class OcrDataset(Dataset):
 
 def get_dataloaders_and_dict(path_to_df, input_size=(64, 512), batch_size=8, test_size=0.15, random_state=42):
     df = pd.read_csv(path_to_df)
-    ocr_dict = OcrDict(df['image'].to_list())
+    ocr_dict = OcrDict(df['text'].to_list())
     train_df, val_df = train_test_split(df, test_size=test_size, random_state=random_state)
     train_dataset = OcrDataset(train_df, ocr_dict, input_size=input_size)
     val_dataset = OcrDataset(val_df, ocr_dict, input_size=input_size)

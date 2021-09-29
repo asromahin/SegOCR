@@ -11,8 +11,7 @@ def train(config: Config):
         config.df_path,
         input_size=config.input_size,
     )
-    print(ocr_dict.code_to_char.keys())
-    print(ocr_dict.char_to_code.keys())
+
     model = SegOCR(
         input_size=config.input_size,
         output_classes=ocr_dict.count_letters+1,
