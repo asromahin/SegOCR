@@ -28,8 +28,8 @@ def train(config: Config):
         for data in pbar:
             model.zero_grad()
             optim.zero_grad()
-            data['image'].to(config.device)
-            data['code'].to(config.device)
+            data['image'] = data['image'].to(config.device)
+            data['code'] = data['code'].to(config.device)
             logits = model(data['image'])
             l = loss(logits, data['code'], torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size, data['len'])
             l.backward()
