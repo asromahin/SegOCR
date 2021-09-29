@@ -10,6 +10,9 @@ def train(config: Config):
     train_dataloader, val_dataloader, ocr_dict = get_dataloaders_and_dict(
         config.df_path,
         input_size=config.input_size,
+        batch_size=config.batch_size,
+        test_size=config.test_size,
+        random_state=config.random_state,
     )
 
     model = SegOCR(
