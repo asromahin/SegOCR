@@ -60,7 +60,7 @@ def train(config: Config):
                      data['len'])
             cur_str_match = []
             for i in range(len(logits)):
-                timeseries = logits[i]
+                timeseries = logits[:, i].argmax(dim=1).detach().cpu().numpy()
                 ann_text = data['text'][i]
                 pred_text = ocr_dict.timeseries_to_text(timeseries)
                 cur_str_match.append(ann_text == pred_text)
