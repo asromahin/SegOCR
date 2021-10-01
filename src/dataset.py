@@ -34,6 +34,7 @@ class OcrDataset(Dataset):
             'image': im,
             'code': code,
             'len': len(text),
+            'text': text,
         }
 
 

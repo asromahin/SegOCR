@@ -21,13 +21,23 @@ class OcrDict:
         codes += (self.max_len - len(codes)) * [self.blank_index]
         return codes
 
-    @staticmethod
-    def timeseries_to_code(timeseries):
-        result_code = []
+    def timeseries_to_text(self, timeseries):
+        result_code = ''
         last_code = None
         for code in timeseries:
             if code is not None:
-                if code != last_code:
-                    result_code.append(code)
+                if code != last_code and code != self.blank_index:
+                    result_code += self.code_to_char[code+1]
             last_code = code
         return result_code
+
+    # @staticmethod
+    # def timeseries_to_code(timeseries):
+    #     result_code = []
+    #     last_code = None
+    #     for code in timeseries:
+    #         if code is not None:
+    #             if code != last_code:
+    #                 result_code.append(code)
+    #         last_code = code
+    #     return result_code

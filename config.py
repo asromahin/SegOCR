@@ -30,6 +30,8 @@ class Config:
     loss_kwargs: tp.Mapping
 
     wandb_log: bool
+    project_name: str
+    exp_name: str
 
 
 config = Config(
@@ -57,4 +59,6 @@ config = Config(
     optimizer_kwargs={},
 
     wandb_log=True,
+    project_name='SegOCR',
+    exp_name='test',
 )
