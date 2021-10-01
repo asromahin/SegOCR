@@ -47,7 +47,7 @@ def train(config: Config):
             })
             cum_train_losses.append(l.item())
 
-        pbar_val = tqdm(train_dataloader)
+        pbar_val = tqdm(val_dataloader)
         cum_val_losses = []
         cum_str_match = []
         for data in pbar_val:
