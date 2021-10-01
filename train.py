@@ -59,7 +59,7 @@ def train(config: Config):
                      torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size,
                      data['len'])
             cur_str_match = []
-            for i in range(len(logits)):
+            for i in range(len(data['text'])):
                 timeseries = logits[:, i].argmax(dim=1).detach().cpu().numpy()
                 ann_text = data['text'][i]
                 pred_text = ocr_dict.timeseries_to_text(timeseries)
