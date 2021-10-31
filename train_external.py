@@ -41,7 +41,7 @@ def train_external(config: Config):
             data['code'] = data['code'].to(config.device)
 
             logits, seg_logits = model(data['image'], return_seg=True)
-            new_image = seg_logits[:, 1:].max(dim=1)[0].repeat((1, 3, 1, 1))
+            new_image = seg_logits[:, 1:].max(dim=1)[0].unsqueeze(dim=1).repeat((1, 3, 1, 1))
             new_logits, new_seg_logits = model(new_image, return_seg=True)
 
             l = loss(logits, data['code'], torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size, data['len'])
@@ -67,7 +67,7 @@ def train_external(config: Config):
             data['code'] = data['code'].to(config.device)
             with torch.no_grad():
                 logits, seg_logits = model(data['image'], return_seg=True)
-                new_image = seg_logits[:, 1:].max(dim=1).repeat((1, 3, 1, 1))
+                new_image = seg_logits[:, 1:].max(dim=1)[0].unsqueeze(dim=1).repeat((1, 3, 1, 1))
                 new_logits, new_seg_logits = model(new_image, return_seg=True)
             l = loss(logits, data['code'],
                      torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size,
