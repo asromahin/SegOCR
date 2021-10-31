@@ -50,6 +50,7 @@ class SegOCR(torch.nn.Module):
             stride=convert_size,
         )
         self.activation = torch.nn.LogSoftmax(dim=2)
+        self.seg_activation = torch.nn.LogSoftmax(dim=1)
 
     def forward(self, x, return_seg=False):
         seg_out = self.seg_model(x)
@@ -57,6 +58,7 @@ class SegOCR(torch.nn.Module):
         logits = logits.squeeze(dim=2)
         logits = logits.permute(2, 0, 1)
         logits = self.activation(logits)
+        seg_out = self.seg_activation(seg_out)
         if return_seg:
             return logits, seg_out
         else:
