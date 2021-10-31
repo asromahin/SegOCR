@@ -90,8 +90,8 @@ def train_external(config: Config):
                 'str_match': np.mean(cur_str_match)
             })
             cum_val_losses.append(l.item())
-            cum_val_seg_losses.append(sloss)
-            cum_val_cycle_losses.append(cycle_l)
+            cum_val_seg_losses.append(sloss.item())
+            cum_val_cycle_losses.append(cycle_l.item())
             cum_str_match += cur_str_match
 
         wandb.log({"train_loss": np.mean(cum_train_losses)})
