@@ -56,7 +56,7 @@ def train(config: Config):
             with torch.no_grad():
                 logits = model(data['image'])
             l = loss(logits, data['code'],
-                     torch.ones(data['image'].size()[0], device=config.device, dtype=torch.) * config.rnn_size,
+                     torch.ones(data['image'].size()[0], device=config.device, dtype=torch.long) * config.rnn_size,
                      data['len'])
             cur_str_match = []
             for i in range(len(data['text'])):
