@@ -62,5 +62,3 @@ config = Config(
     project_name='SegOCR',
     exp_name='test',
 )
-
-model = torch.load('D:\Repositories\python\Ocr2Seg\src\weights\segocr.pt', map_location='cpu')
