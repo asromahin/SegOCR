@@ -52,7 +52,7 @@ def train(config: Config):
         cum_str_match = []
         for data in pbar_val:
             data['image'] = data['image'].to(config.device)
-            data['code'] = data['code'].to(config.device)s
+            data['code'] = data['code'].to(config.device)
             with torch.no_grad():
                 logits = model(data['image'])
             l = loss(logits, data['code'],
