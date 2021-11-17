@@ -39,7 +39,7 @@ def train(config: Config):
             data['image'] = data['image'].to(config.device)
             data['code'] = data['code'].to(config.device)
             logits = model(data['image'])
-            l = loss(logits, data['code'], data['len'], torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size)
+            l = loss(logits, data['code'], torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size, data['len'])
             l.backward()
             optim.step()
             pbar_train.set_postfix({
