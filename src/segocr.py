@@ -43,9 +43,9 @@ class SegOCR(torch.nn.Module):
 
         convert_size = (self.input_size[0], self.input_size[1]//rnn_size)
         # Output size after this conv - (batch_size, output_classes, 1, rnn_size)
-        self.to_rnn_size = torch.nn.MaxPool2d(
-            #self.output_classes,
-            #self.output_classes,
+        self.to_rnn_size = torch.nn.Conv2d(
+            self.output_classes,
+            self.output_classes,
             kernel_size=convert_size,
             stride=convert_size,
         )
@@ -54,11 +54,11 @@ class SegOCR(torch.nn.Module):
 
     def forward(self, x, return_seg=False):
         seg_out = self.seg_model(x)
-        seg_out = self.seg_activation(seg_out)
+        #seg_out = self.seg_activation(seg_out)
         logits = self.to_rnn_size(seg_out)
         logits = logits.squeeze(dim=2)
         logits = logits.permute(2, 0, 1)
-        #logits = self.activation(logits)
+        logits = self.activation(logits)
         if return_seg:
             return logits, seg_out
         else:
