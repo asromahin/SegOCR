@@ -39,7 +39,7 @@ def train(config: Config):
             data['image'] = data['image'].to(config.device)
             data['code'] = data['code'].to(config.device)
             logits = model(data['image'])
-            l = loss(logits, data['code'], torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size, data['len'])
+            l = loss(logits, data['code'], torch.ones(data['image'].size()[0], device=config.device, dtype=torch.long) * config.rnn_size, data['len'])
             l.backward()
             optim.step()
             pbar_train.set_postfix({
@@ -52,11 +52,11 @@ def train(config: Config):
         cum_str_match = []
         for data in pbar_val:
             data['image'] = data['image'].to(config.device)
-            data['code'] = data['code'].to(config.device)
+            data['code'] = data['code'].to(config.device)s
             with torch.no_grad():
                 logits = model(data['image'])
             l = loss(logits, data['code'],
-                     torch.ones(data['image'].size()[0], device=config.device, dtype=torch.int) * config.rnn_size,
+                     torch.ones(data['image'].size()[0], device=config.device, dtype=torch.) * config.rnn_size,
                      data['len'])
             cur_str_match = []
             for i in range(len(data['text'])):
