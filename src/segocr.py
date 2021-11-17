@@ -19,7 +19,7 @@ class SegOCR(torch.nn.Module):
             output_classes,
             in_channels=3,
             rnn_size=64,
-            encoder_name='resnet34',
+            encoder_name='efficientnet-b0',
             model_type=ModelTypeEnum.unet,
             pretrained=True,
     ):
@@ -43,9 +43,9 @@ class SegOCR(torch.nn.Module):
 
         convert_size = (self.input_size[0], self.input_size[1]//rnn_size)
         # Output size after this conv - (batch_size, output_classes, 1, rnn_size)
-        self.to_rnn_size = torch.nn.Conv2d(
-            self.output_classes,
-            self.output_classes,
+        self.to_rnn_size = torch.nn.MaxPool2d(
+            #self.output_classes,
+            #self.output_classes,
             kernel_size=convert_size,
             stride=convert_size,
         )
@@ -63,3 +63,4 @@ class SegOCR(torch.nn.Module):
             return logits, seg_out
         else:
             return logits
+
