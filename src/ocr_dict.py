@@ -2,7 +2,11 @@ class OcrDict:
     def __init__(self, list_texts):
         self.list_texts = list_texts
         self.blank_index = 0
-        self.unique_texts = list(set(list_texts))
+        self.unique_texts = "abcdefghijklmnopqrstuvwxyz"
+        self.unique_texts += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        self.unique_texts += '1234567890'
+        self.unique_texts += '!@#$%^&*()_-+=/\\.>,<'
+        #self.unique_texts = list(set(list_texts))
         self.unique_chars, self.code_to_char, self.char_to_code = self._get_dicts()
         self.count_letters = len(self.unique_chars)
         self.max_len = max([len(text) for text in list_texts])
