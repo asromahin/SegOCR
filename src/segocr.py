@@ -43,10 +43,14 @@ class SegOCR(torch.nn.Module):
 
         convert_size = (self.input_size[0], self.input_size[1]//rnn_size)
         # Output size after this conv - (batch_size, output_classes, 1, rnn_size)
-        self.to_rnn_size = torch.nn.Conv2d(
-            self.output_classes,
-            self.output_classes,
-            kernel_size=convert_size,
+        # self.to_rnn_size = torch.nn.Conv2d(
+        #     self.output_classes,
+        #     self.output_classes,
+        #     kernel_size=convert_size,
+        #     stride=convert_size,
+        # )
+        self.to_rnn_size = torch.nn.AvgPool2d(
+            convert_size,
             stride=convert_size,
         )
         self.activation = torch.nn.LogSoftmax(dim=2)
