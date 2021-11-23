@@ -75,7 +75,7 @@ def train(config: Config):
         wandb.log({"train_loss": np.mean(cum_train_losses)})
         wandb.log({"val_loss": np.mean(cum_val_losses)})
         wandb.log({"str_match": np.mean(cum_str_match)})
-    torch.save(model, 'segocr.pt')
+        torch.save(model, 'segocr.pt')
 
 
 if __name__ == '__main__':
